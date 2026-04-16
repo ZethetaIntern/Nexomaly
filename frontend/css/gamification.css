@@ -1,0 +1,244 @@
+/* ── Gamification page styles ── */
+
+/* Hero profile card */
+.g-hero {
+  display: flex;
+  align-items: flex-start;
+  gap: 24px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--r);
+  padding: 22px 24px;
+  margin-bottom: 18px;
+  position: relative;
+  overflow: hidden;
+}
+.g-hero::before {
+  content: '';
+  position: absolute;
+  top: -40px; right: -40px;
+  width: 180px; height: 180px;
+  border-radius: 50%;
+  background: var(--cyan);
+  opacity: .04;
+  filter: blur(40px);
+}
+
+.g-avatar-wrap { display: flex; flex-direction: column; align-items: center; gap: 6px; }
+.g-avatar {
+  width: 72px; height: 72px;
+  border-radius: 50%;
+  border: 3px solid var(--cyan);
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--mono); font-size: 28px; font-weight: 700;
+  color: var(--txt); background: var(--bg-panel);
+  transition: all .3s ease;
+}
+.g-avatar-label {
+  font-family: var(--mono); font-size: 9px; letter-spacing: .15em;
+  color: var(--txt3); text-transform: uppercase;
+}
+
+.g-hero-info { flex: 1; }
+.g-analyst-name {
+  font-size: 20px; font-weight: 700; color: var(--txt); margin-bottom: 2px;
+}
+.g-analyst-title {
+  font-family: var(--mono); font-size: 10px; color: var(--cyan);
+  letter-spacing: .1em; text-transform: uppercase; margin-bottom: 14px;
+}
+
+.g-xp-bar-wrap { display: flex; align-items: center; gap: 10px; margin-bottom: 16px; }
+.g-xp-bar-track {
+  flex: 1; height: 6px; background: var(--border); border-radius: 3px; overflow: hidden;
+}
+.g-xp-bar-fill {
+  height: 100%; border-radius: 3px;
+  background: linear-gradient(90deg, var(--cyan), var(--purple));
+  transition: width .6s ease;
+}
+.g-xp-label { font-family: var(--mono); font-size: 10px; color: var(--txt2); flex-shrink: 0; }
+
+.g-stats-row { display: flex; gap: 20px; flex-wrap: wrap; }
+.g-stat { text-align: center; }
+.g-stat-val {
+  font-family: var(--mono); font-size: 18px; font-weight: 700;
+  color: var(--txt); line-height: 1;
+}
+.g-stat-label {
+  font-family: var(--mono); font-size: 9px; color: var(--txt3);
+  text-transform: uppercase; letter-spacing: .08em; margin-top: 3px;
+}
+
+/* ── Badges ── */
+.badges-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+  gap: 10px;
+  margin-bottom: 8px;
+}
+
+.badge-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--r);
+  padding: 14px 12px;
+  text-align: center;
+  transition: all var(--t);
+  cursor: default;
+}
+.badge-card.unlocked {
+  border-color: var(--cyan);
+  background: linear-gradient(135deg, var(--bg-card), rgba(0,229,207,.06));
+  box-shadow: 0 0 10px rgba(0,229,207,.1);
+}
+.badge-card.unlocked:hover { transform: translateY(-2px); box-shadow: 0 4px 16px rgba(0,229,207,.2); }
+.badge-card.locked { opacity: .6; }
+
+.badge-icon  { font-size: 28px; margin-bottom: 7px; }
+.badge-name  { font-family: var(--mono); font-size: 10px; font-weight: 700; color: var(--txt); margin-bottom: 3px; }
+.badge-xp    { font-family: var(--mono); font-size: 9px; color: var(--cyan); }
+.badge-date  { font-family: var(--mono); font-size: 8px; color: var(--txt3); margin-top: 3px; }
+.badge-desc  { font-size: 10px; color: var(--txt3); margin-top: 4px; line-height: 1.4; }
+
+/* ── Daily Challenges ── */
+.challenges-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  margin-bottom: 18px;
+}
+
+.challenge-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--r);
+  padding: 14px;
+  transition: all var(--t);
+}
+.challenge-card.done {
+  border-color: var(--green);
+  background: rgba(0,224,128,.05);
+}
+
+.challenge-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+.challenge-icon  { font-size: 16px; }
+.challenge-title {
+  font-family: var(--mono); font-size: 11px; font-weight: 700;
+  color: var(--txt); flex: 1;
+}
+.challenge-xp {
+  font-family: var(--mono); font-size: 10px; color: var(--yellow);
+}
+.challenge-desc { font-size: 11px; color: var(--txt2); margin-bottom: 10px; line-height: 1.5; }
+
+.challenge-progress { display: flex; align-items: center; gap: 8px; margin-bottom: 5px; }
+.challenge-bar-track {
+  flex: 1; height: 4px; background: var(--border); border-radius: 2px; overflow: hidden;
+}
+.challenge-bar-fill { height: 100%; border-radius: 2px; transition: width .5s ease; }
+.challenge-count { font-family: var(--mono); font-size: 9px; color: var(--txt2); flex-shrink: 0; }
+.challenge-expire { font-family: var(--mono); font-size: 9px; color: var(--txt3); }
+
+/* ── XP table ── */
+.xp-table { display: flex; flex-direction: column; gap: 5px; }
+.xp-row {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 5px 8px; border-radius: 3px;
+  font-family: var(--mono); font-size: 10px;
+}
+.xp-row.pos { background: var(--green-d); color: var(--txt2); }
+.xp-row.pos span:last-child { color: var(--green); font-weight: 700; }
+.xp-row.neg { background: var(--red-d); color: var(--txt2); }
+.xp-row.neg span:last-child { color: var(--red); font-weight: 700; }
+
+/* ── Level table ── */
+.level-table { display: flex; flex-direction: column; gap: 4px; }
+.level-row {
+  display: flex; align-items: center; gap: 8px;
+  padding: 5px 8px; border-radius: 3px; font-family: var(--mono); font-size: 10px;
+}
+.level-row:hover { background: var(--bg-hover); }
+.lv-num   { color: var(--cyan); font-weight: 700; width: 36px; flex-shrink: 0; }
+.lv-xp    { color: var(--yellow); width: 65px; flex-shrink: 0; }
+.lv-title { color: var(--txt2); }
+
+/* ── Leaderboard ── */
+.lb-row {
+  display: flex; align-items: center; gap: 10px;
+  padding: 9px 4px; border-bottom: 1px solid var(--border);
+  transition: background var(--t);
+}
+.lb-row:hover { background: var(--bg-hover); }
+.lb-row:last-child { border-bottom: none; }
+.lb-row.lb-me { background: var(--cyan-d); border-radius: var(--r); }
+
+.lb-rank  { font-family: var(--mono); font-size: 14px; min-width: 28px; text-align: center; }
+.lb-name-wrap { flex: 1; }
+.lb-name  { font-size: 12px; color: var(--txt); font-weight: 500; display: block; }
+.lb-level { font-family: var(--mono); font-size: 9px; color: var(--txt3); }
+.lb-stats { display: flex; gap: 8px; }
+.lb-stat  { font-family: var(--mono); font-size: 9px; color: var(--txt2); }
+.lb-xp    { font-family: var(--mono); font-size: 12px; font-weight: 700; color: var(--cyan); min-width: 70px; text-align: right; }
+
+/* ── Success Criteria ── */
+.criteria-card {
+  text-align: center;
+  padding: 16px;
+  background: var(--bg-panel);
+  border-radius: var(--r);
+  border: 1px solid var(--border);
+}
+.crit-icon  { font-size: 24px; margin-bottom: 8px; }
+.crit-val   { font-family: var(--mono); font-size: 26px; font-weight: 700; color: var(--txt); margin-bottom: 4px; }
+.crit-label { font-family: var(--mono); font-size: 10px; color: var(--txt2); text-transform: uppercase; letter-spacing: .08em; }
+.crit-target{ font-family: var(--mono); font-size: 9px; color: var(--txt3); margin-top: 4px; }
+
+
+/* Scrollable leaderboard + XP log panel */
+#leaderboard-list {
+  max-height: 320px;
+  overflow-y: auto;
+  padding-right: 4px;
+}
+
+#xp-log {
+  max-height: 320px;
+  overflow-y: auto;
+  padding-right: 4px;
+}
+
+/* Style the scrollbar to match theme */
+#xp-log::-webkit-scrollbar,
+#leaderboard-list::-webkit-scrollbar {
+  width: 4px;
+}
+#xp-log::-webkit-scrollbar-track,
+#leaderboard-list::-webkit-scrollbar-track {
+  background: var(--bg);
+}
+#xp-log::-webkit-scrollbar-thumb,
+#leaderboard-list::-webkit-scrollbar-thumb {
+  background: var(--border-lit);
+  border-radius: 2px;
+}
+#xp-log::-webkit-scrollbar-thumb:hover,
+#leaderboard-list::-webkit-scrollbar-thumb:hover {
+  background: var(--cyan);
+}
+
+/* Scrollable feedback log table */
+/* .feedback-table-wrap {
+  max-height: 380px;
+  overflow-y: auto;
+}
+
+.feedback-table-wrap::-webkit-scrollbar { width: 4px; }
+.feedback-table-wrap::-webkit-scrollbar-track { background: var(--bg); }
+.feedback-table-wrap::-webkit-scrollbar-thumb { background: var(--border-lit); border-radius: 2px; }
+.feedback-table-wrap::-webkit-scrollbar-thumb:hover { background: var(--cyan); } */

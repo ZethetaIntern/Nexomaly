@@ -1,0 +1,74 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Nexomaly — Metrics</title><link rel="stylesheet" href="../css/main.css"></head><body>
+<div class="layout">
+<aside class="sidebar">
+  <div class="sb-logo"><div class="sb-logo-row"><div class="sb-icon">⬡</div><div class="sb-text">Nexomaly<br><span class="desc">Real-time anomaly insights</span></div></div></div>
+  <div class="sb-sec">Monitor</div>
+  <a class="nav" href="dashboard.html"><span class="nav-ic">◈</span>Dashboard</a>
+  <a class="nav" href="investigation.html"><span class="nav-ic">◉</span>Alerts<span class="nav-badge nb-y" id="sb-badge-alerts" style="display:none">0</span></a>
+  <div class="sb-sec">Investigate</div>
+  <a class="nav" href="cases.html"><span class="nav-ic">⊡</span>Cases</a>
+  <a class="nav" href="cases.html#feedback"><span class="nav-ic">◎</span>Feedback</a>
+  <div class="sb-sec">Analytics</div>
+  <a class="nav active" href="metrics.html"><span class="nav-ic">▣</span>Metrics</a>
+  <a class="nav active" href="metrics.html"><span class="nav-ic">↑</span>Upload Data</a>
+  <div class="sb-sec">Compete</div>
+  <a class="nav" href="gamification.html"><span class="nav-ic">🏆</span>Achievements</a>
+  <div class="sb-bottom"><div class="user-av">SA</div><div><div class="user-name">Sr. Analyst</div><div class="user-role">FRAUD_OPS</div></div></div>
+</aside>
+<div class="main">
+  <div class="topbar">
+    <div class="breadcrumb">Nexomaly <span class="sep">/</span><span class="cur">metrics & data</span></div>
+    <div class="tb-actions">
+      <div class="clock" id="clock">00:00:00</div>
+      <button class="btn btn-ghost" id="btn-train">Train Models Now</button>
+      <a class="btn btn-primary" href="dashboard.html">← Dashboard</a>
+    </div>
+  </div>
+  <div class="page">
+    <div style="font-family:var(--mono);font-size:10px;letter-spacing:.12em;color:var(--txt2);text-transform:uppercase;margin-bottom:12px">Live Performance (from analyst feedback)</div>
+    <div class="stats-grid" style="grid-template-columns:repeat(5,1fr);margin-bottom:18px">
+      <div class="stat-card sc-cyan"><div class="stat-label">Precision</div><div class="stat-val" id="m-prec">—</div></div>
+      <div class="stat-card sc-green"><div class="stat-label">Recall</div><div class="stat-val" id="m-rec">—</div></div>
+      <div class="stat-card sc-purple"><div class="stat-label">F1 Score</div><div class="stat-val" id="m-f1">—</div></div>
+      <div class="stat-card sc-red"><div class="stat-label">FP Rate</div><div class="stat-val" id="m-fpr">—</div></div>
+      <div class="stat-card sc-yellow"><div class="stat-label">Detection Rate</div><div class="stat-val" id="m-dr">—</div></div>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:18px">
+      <div class="panel"><div class="stat-label">True Positives</div><div class="stat-val" id="m-tp" style="color:var(--green)">—</div></div>
+      <div class="panel"><div class="stat-label">False Positives</div><div class="stat-val" id="m-fp" style="color:var(--red)">—</div></div>
+      <div class="panel"><div class="stat-label">Total Predictions</div><div class="stat-val" id="m-total">—</div></div>
+    </div>
+    <div style="font-family:var(--mono);font-size:10px;letter-spacing:.12em;color:var(--txt2);text-transform:uppercase;margin-bottom:12px">Model Training History</div>
+    <div id="model-cards"><div class="loading"><div class="spin">⟳</div><div class="loading-txt">LOADING…</div></div></div>
+    <div class="metrics-grid" style="margin-top:8px">
+      <div class="panel"><div class="panel-hd"><span class="panel-title">Isolation Forest — Latest Run</span></div><div id="perf-bars-if"></div></div>
+      <div class="panel"><div class="panel-hd"><span class="panel-title">Random Forest — Latest Run</span></div><div id="perf-bars-rf"></div></div>
+    </div>
+    <div style="font-family:var(--mono);font-size:10px;letter-spacing:.12em;color:var(--txt2);text-transform:uppercase;margin:18px 0 12px">Custom Dataset Upload</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:18px">
+      <div class="panel">
+        <div class="panel-hd"><span class="panel-title">Upload CSV Dataset</span></div>
+        <div class="upload-zone" id="upload-zone">
+          <div class="upload-icon">↑</div>
+          <div class="upload-text">Drop CSV here or click to browse</div>
+          <div class="upload-sub">Must contain transaction data with an is_fraud column</div>
+        </div>
+        <input type="file" id="file-input" accept=".csv" style="display:none">
+        <div style="margin-top:10px;font-family:var(--mono);font-size:10px;color:var(--txt2)" id="upload-status"></div>
+      </div>
+      <div class="panel">
+        <div class="panel-hd"><span class="panel-title">Expected CSV Format</span></div>
+        <div style="font-family:var(--mono);font-size:10px;color:var(--txt2);line-height:1.8">
+          <div style="color:var(--cyan);margin-bottom:8px">Required: <span style="color:var(--green)">is_fraud</span> (0 or 1)</div>
+          <div style="color:var(--txt3);margin-bottom:8px">Recommended: amount, user_id, merchant,<br>category, location, hour, is_weekend…</div>
+          <div style="color:var(--txt2)">Auto-preprocessing:</div>
+          <div style="color:var(--green);padding-left:8px;margin-top:4px">✓ Fill missing values<br>✓ Encode categoricals<br>✓ Normalize features<br>✓ Retrain all models</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div></div>
+<script src="../js/api.js"></script><script src="../js/charts.js"></script><script src="../js/metrics.js"></script>
+<script src="../js/gamification.js"></script>
+</body></html>
