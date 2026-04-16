@@ -1,0 +1,16 @@
+FROM python:3.11-slim
+WORKDIR /app
+RUN apt-get update && apt-get install -y --no-install-recommends build-essential curl && rm -rf /var/lib/apt/lists/*
+COPY backend/requirements.txt .
+RUN pip install --no-cache-dir fastapi uvicorn sqlalchemy alembic psycopg2-binary pydantic pydantic-settings \
+    python-multipart aiofiles websockets httpx scikit-learn numpy pandas joblib scipy python-dotenv
+COPY backend/ ./backend/
+COPY frontend/ ./frontend/
+COPY data/ ./data/
+ENV PYTHONPATH=/app/backend
+ENV DATABASE_URL=sqlite:///./anomalyos.db
+ENV ML_MODELS_PATH=/app/backend/models/saved
+WORKDIR /app/backend
+EXPOSE 8000
+HEALTHCHECK --interval=30s --timeout=10s --retries=3 CMD curl -f http://localhost:8000/api/health || exit 1
+CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "9000"]

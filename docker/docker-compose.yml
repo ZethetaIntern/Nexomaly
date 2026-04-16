@@ -1,0 +1,57 @@
+version: '3.8'
+services:
+  backend:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile.backend
+    container_name: anomalyos-backend
+    ports:
+      - "9000:9000"
+    environment:
+      - DATABASE_URL=postgresql://anomalyos:secret@postgres:5432/anomalyos
+      - ML_MODELS_PATH=/app/backend/models/saved
+      - RISK_THRESHOLD_HIGH=70
+      - RISK_THRESHOLD_MEDIUM=40
+      - SIMULATION_INTERVAL=4
+      - SIMULATION_ENABLED=true
+    depends_on:
+      postgres:
+        condition: service_healthy
+    volumes:
+      - models:/app/backend/models/saved
+      - uploads:/app/backend/uploads
+    restart: unless-stopped
+
+  frontend:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile.frontend
+    container_name: anomalyos-frontend
+    ports:
+      - "3000:80"
+    depends_on:
+      - backend
+    restart: unless-stopped
+
+  postgres:
+    image: postgres:15-alpine
+    container_name: anomalyos-postgres
+    environment:
+      POSTGRES_DB: anomalyos
+      POSTGRES_USER: anomalyos
+      POSTGRES_PASSWORD: secret
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL","pg_isready -U anomalyos"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    restart: unless-stopped
+
+volumes:
+  pgdata:
+  models:
+  uploads:

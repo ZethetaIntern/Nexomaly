@@ -1,0 +1,4 @@
+FROM nginx:alpine
+COPY frontend/ /usr/share/nginx/html/
+RUN printf 'server{\nlisten 80;\nroot /usr/share/nginx/html;\nindex pages/dashboard.html;\nlocation /{\ntry_files $uri $uri/ /pages/dashboard.html;\n}\n}' > /etc/nginx/conf.d/default.conf
+EXPOSE 80
