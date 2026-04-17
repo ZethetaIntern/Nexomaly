@@ -29,7 +29,7 @@ Alerts are generated in under 1 second using pre-trained models served via a Fas
 
 ## 🖥️ Dashboard Preview
 
-![Nexomaly Dashboard](assets/dashboard.png)
+![Nexomaly Dashboard](assets/dashboard.jpeg)
 
 > Real-time anomaly monitoring — 876 alerts tracked, 208 high-risk flagged, 0.1% false positive rate, live 24h trend chart and alert distribution breakdown.
 
