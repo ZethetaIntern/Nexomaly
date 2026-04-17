@@ -247,11 +247,6 @@ or
 uvicorn main:app --host 0.0.0.0 --port 9000 --reload
 ```
 
-| Endpoint | URL |
-|---|---|
-| API | http://localhost:9000 |
-| Dashboard | http://localhost:9000/static/pages/dashboard.html |
-| Swagger UI | http://localhost:9000/docs |
 
 ### Docker
 
@@ -262,11 +257,6 @@ cd Nexomaly-main/docker
 docker-compose up --build
 ```
 
-| Service | URL |
-|---|---|
-| Backend API | http://localhost:9000 |
-| Frontend | http://localhost:3000 |
-| PostgreSQL | localhost:5432 |
 
 ```bash
 # Stop all services
